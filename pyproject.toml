@@ -18,8 +18,14 @@ dependencies = [
 llm = [
     "llama-index-llms-anthropic>=0.6",
     "anthropic>=0.40",
-    "ragas>=0.2",
 ]
+# Note on Ragas: the spec names Ragas for evaluation. At build time Ragas (0.2 and
+# 0.4) was incompatible with the installed langchain 1.x line (it imports modules
+# removed in langchain 1.0), and pinning langchain down cascaded into conflicts
+# with langgraph/langchain-openai. Rather than ship a broken dependency, the
+# LLM-judged metrics (faithfulness, answer relevancy, context precision) are
+# computed directly against Claude in src/judge.py, using the same metric
+# definitions Ragas uses. See README "Evaluation" for the rationale.
 app = [
     "streamlit>=1.40",
 ]
