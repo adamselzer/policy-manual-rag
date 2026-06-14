@@ -20,12 +20,14 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 import streamlit as st
 
+from app._ui import apply_theme, footer, header
 from data.chunk import build_nodes
 from src.answer import answer_question, build_llm
 from src.config import has_llm
 from src.retrieve import RetrievalEngine
 
 st.set_page_config(page_title="Michigan SNAP policy RAG", layout="wide")
+apply_theme(st)
 
 
 @st.cache_resource(show_spinner="Building indexes over the manual...")
@@ -38,11 +40,13 @@ def get_llm():
     return build_llm() if has_llm() else None
 
 
-st.title("Michigan SNAP eligibility — policy Q&A")
-st.caption(
+header(
+    st,
+    "Safety-Net AI · RAG",
+    "Michigan SNAP eligibility — policy Q&A",
     "Grounded answers over a real subset of the Michigan Bridges Eligibility Manual. "
-    "Every policy statement cites the BEM/BAM section it came from. If the manual "
-    "does not cover the question, the system declines rather than inventing."
+    "Every policy statement cites the BEM/BAM section it came from. When the manual "
+    "does not cover a question, the system declines rather than inventing.",
 )
 
 with st.sidebar:
@@ -89,3 +93,5 @@ if question:
             with st.expander(f"{label}  (score {p.score:.2f})"):
                 st.markdown(f"[{p.title}]({p.url})")
                 st.write(p.text)
+
+footer(st, "Real Michigan BEM/BAM policy, retrieved and cited")
