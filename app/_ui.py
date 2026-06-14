@@ -1,58 +1,63 @@
-"""Shared visual language for the app.
+"""Shared visual language for the app — the Civic design system (Streamlit form).
 
-A restrained system, not a redesign: a considered neutral palette, a serif display
-face paired with a humanist sans and a mono for codes and citations, and the
-framework chrome removed. The same treatment is used across the four Safety-Net AI
-apps so the suite reads as one body of work.
+A restrained derivative of the U.S. Web Design System: an open civic sans (Source
+Sans 3) with a Source Serif 4 display face and Roboto Mono for citations, an
+evergreen primary, a warm-paper canvas, and the framework chrome removed. The hero
+front-end (benefits-intake-agent/web) carries the full component system; here the
+same tokens give the suite a consistent feel. See that repo's DESIGN_SYSTEM.md.
 """
 
 from __future__ import annotations
 
 _CSS = """
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=Roboto+Mono:wght@400;500&display=swap');
 
 :root {
-  --ink:#16202A; --paper:#FBFAF8; --panel:#F1EFEA; --line:#E4E0D7;
-  --accent:#1F6F5C; --accent-ink:#16433A; --muted:#6B7280;
+  --ink:#14181F; --paper:#FBFAF8; --panel:#F4F2EC; --line:#E4E0D7;
+  --accent:#1F6F5C; --accent-ink:#143F35; --muted:#697078;
+  --sans:'Source Sans 3', system-ui, sans-serif; --serif:'Source Serif 4', Georgia, serif;
+  --mono:'Roboto Mono', ui-monospace, monospace;
 }
 
-/* remove framework chrome for an app-like surface */
 [data-testid="stToolbar"], #MainMenu, [data-testid="stDecoration"],
 header[data-testid="stHeader"], footer { display:none !important; }
 
-html, body, .stApp, [class*="css"] { font-family:'Inter', system-ui, sans-serif; color:var(--ink); }
+html, body, .stApp, [class*="css"] { font-family:var(--sans); color:var(--ink); }
 .stApp { background:var(--paper); }
 .block-container { padding-top:2.2rem; max-width:1060px; }
 
-/* header */
-.sn-eyebrow { font-size:11.5px; letter-spacing:0.16em; text-transform:uppercase;
+.sn-eyebrow { font-size:11.5px; letter-spacing:0.14em; text-transform:uppercase;
   color:var(--accent); font-weight:600; margin-bottom:.35rem; }
-.sn-title { font-family:'Newsreader', ui-serif, Georgia, serif; font-weight:500;
-  font-size:2.5rem; line-height:1.08; letter-spacing:-0.01em; margin:0 0 .4rem 0; color:var(--ink); }
-.sn-sub { color:var(--muted); font-size:0.98rem; line-height:1.5; max-width:62ch; margin:0; }
+.sn-title { font-family:var(--serif); font-weight:600;
+  font-size:2.4rem; line-height:1.1; letter-spacing:-0.01em; margin:0 0 .4rem 0; color:var(--ink); }
+.sn-sub { color:var(--muted); font-size:0.98rem; line-height:1.55; max-width:62ch; margin:0; }
 .sn-rule { height:1px; background:var(--line); border:0; margin:1.1rem 0 1.4rem 0; }
 
-/* section headings stay sans for a crisp hierarchy under the serif title */
-h2, h3 { font-family:'Inter', system-ui, sans-serif !important; font-weight:600 !important;
+h2, h3 { font-family:var(--sans) !important; font-weight:600 !important;
   letter-spacing:-0.01em; color:var(--ink); }
 
-/* codes, ids, citations read as artifacts */
-code, kbd, .sn-mono { font-family:'JetBrains Mono', ui-monospace, monospace !important;
+code, kbd, .sn-mono { font-family:var(--mono) !important;
   font-size:0.86em; background:rgba(31,111,92,0.08); color:var(--accent-ink);
   padding:.05em .35em; border-radius:4px; }
 
-/* accent the primary button + form focus without shouting */
 .stButton>button[kind="primary"], .stButton>button:focus { border-color:var(--accent); }
 [data-baseweb="input"]:focus-within, [data-baseweb="select"]:focus-within { border-color:var(--accent) !important; }
-
-/* sidebar as a quiet panel */
 [data-testid="stSidebar"] { background:var(--panel); border-right:1px solid var(--line); }
 
-/* footer */
 .sn-foot { color:var(--muted); font-size:12px; border-top:1px solid var(--line);
   margin-top:2.5rem; padding-top:.9rem; }
 .sn-foot b { color:var(--accent-ink); font-weight:600; }
+
+/* case study */
+.cs-lead { font-family:var(--serif); font-size:1.45rem; line-height:1.42; color:var(--ink); margin:.4rem 0 .8rem; }
+.cs h2 { font-size:1.05rem; font-weight:600; margin:1.6rem 0 .6rem; }
+.cs p { font-size:0.97rem; line-height:1.65; color:#3D4654; margin:0 0 .7rem; max-width:64ch; }
+.cs .dec { border:1px solid var(--line); border-radius:10px; padding:.8rem 1rem; margin:.55rem 0; background:#fff; max-width:64ch; }
+.cs .dec b { font-size:0.97rem; color:var(--ink); }
+.cs .dec p { margin:.35rem 0 0; font-size:0.9rem; }
+.cs .alt { color:var(--muted); font-size:0.85rem; margin-top:.35rem; }
+.cs ul { max-width:64ch; } .cs li { font-size:0.95rem; line-height:1.6; color:#3D4654; margin-bottom:.4rem; }
 </style>
 """
 
@@ -76,3 +81,8 @@ def footer(st, note: str) -> None:
         f'<div class="sn-foot">{note} · part of the <b>Safety-Net AI</b> portfolio</div>',
         unsafe_allow_html=True,
     )
+
+
+def case_study(st, html: str) -> None:
+    """Render a case-study walkthrough from a composed HTML string."""
+    st.markdown(f'<div class="cs">{html}</div>', unsafe_allow_html=True)
