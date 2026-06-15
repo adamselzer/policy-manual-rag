@@ -11,9 +11,9 @@ server exposes as a tool and the `benefits-intake-agent` consumes.
 
 > A hallucinated policy answer is a wrongful determination is a wrongful denial of
 > food assistance. So faithfulness, the degree to which an answer is grounded in
-> the retrieved policy text, is the safety case here. A RAG app
-> that returns plausible text is table stakes. The point of this one is that it is
-> measured.
+> the retrieved policy text, is the safety case here. Any RAG app can return
+> plausible text. This one reports a measured faithfulness score against the
+> manual.
 
 ## What it does
 
