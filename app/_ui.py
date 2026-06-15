@@ -1,4 +1,4 @@
-"""Shared visual language for the app — the Civic design system (Streamlit form).
+"""Shared visual language for the app — the Civil design system (Streamlit form).
 
 A restrained derivative of the U.S. Web Design System: an open civic sans (Source
 Sans 3) with a Source Serif 4 display face and Roboto Mono for citations, an
