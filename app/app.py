@@ -70,7 +70,7 @@ CASE_STUDY = """
 
 header(
     st,
-    "Safety-Net AI · RAG",
+    "Policy lookup · food assistance",
     "Michigan SNAP eligibility — policy Q&A",
     "Grounded answers over a real subset of the Michigan Bridges Eligibility Manual. "
     "Every policy statement cites the BEM/BAM section it came from. When the manual "

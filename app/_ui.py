@@ -76,9 +76,13 @@ def header(st, eyebrow: str, title: str, subtitle: str) -> None:
     )
 
 
+HUB_URL = "https://adamselzer.github.io/safety-net-ai/"
+
+
 def footer(st, note: str) -> None:
     st.markdown(
-        f'<div class="sn-foot">{note} · part of the <b>Safety-Net AI</b> portfolio</div>',
+        f'<div class="sn-foot">{note} · part of the '
+        f'<a href="{HUB_URL}" target="_blank"><b>Safety-Net AI</b></a> portfolio</div>',
         unsafe_allow_html=True,
     )
 
