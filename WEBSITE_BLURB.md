@@ -1,4 +1,4 @@
-# Website blurb — policy-manual-rag
+# Website blurb: policy-manual-rag
 
 Drop-in copy for a portfolio page. A short paragraph plus highlight bullets.
 

@@ -1,4 +1,4 @@
-# Portfolio notes — policy-manual-rag
+# Portfolio notes: policy-manual-rag
 
 A plain-language account of what this project is and the judgment behind it.
 
@@ -27,7 +27,7 @@ safety case; everything else serves them.
 
 ## Key design decisions and tradeoffs
 
-1. **A real manual, not a synthetic one.** The corpus is eleven actual Michigan
+1. **The real eligibility manual.** The corpus is eleven actual Michigan
    BEM/BAM sections. *Rejected:* a synthetic manual of the same shape, which would
    have been easier to parse and label. The real manual is harder (column layout,
    repeated page boilerplate, inconsistent headings) but it is the domain, it

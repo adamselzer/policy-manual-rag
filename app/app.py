@@ -41,7 +41,7 @@ def get_llm():
 
 
 CASE_STUDY = """
-<p class="cs-lead">Grounded answers to a caseworker's policy questions, every claim cited to the manual section it came from — and a refusal when the manual does not cover it.</p>
+<p class="cs-lead">Grounded answers to a caseworker's policy questions, every claim cited to the manual section it came from, with a refusal when the manual does not cover it.</p>
 
 <h2>Who it is for, and the need</h2>
 <p>A benefits caseworker needs to look up a policy point quickly and trust the answer. A general chatbot is dangerous here: a confident, wrong policy answer becomes a wrong eligibility determination. The need is grounded question-answering over the real eligibility manual, where every statement is traceable to a section and the system declines when the manual cannot support an answer.</p>
@@ -50,10 +50,10 @@ CASE_STUDY = """
 <p>It ingests real Michigan BEM/BAM sections, retrieves the relevant passages for a question (keyword and semantic search, then a re-rank), and generates an answer that cites each policy statement. When retrieval cannot ground an answer, it refuses instead of inventing one.</p>
 
 <h2>Technical decisions</h2>
-<div class="dec"><b>A real manual, not a synthetic one</b><p>The corpus is eleven actual BEM/BAM sections. It is harder to parse but it is the domain, and it composes with the rules engine that cites the same sections.</p><p class="alt">Instead of: a tidy synthetic manual that would not prove anything about real policy text.</p></div>
+<div class="dec"><b>The real eligibility manual</b><p>The corpus is eleven actual BEM/BAM sections. It is harder to parse but it is the domain, and it composes with the rules engine that cites the same sections.</p><p class="alt">Instead of: a tidy synthetic manual that would not prove anything about real policy text.</p></div>
 <div class="dec"><b>Section-aware chunking</b><p>Chunks never cross a section boundary and carry their section id, so every passage is citable. Naive fixed-size chunks that straddle a boundary cannot be attributed.</p><p class="alt">Instead of: fixed-size windows that shred a rule mid-sentence.</p></div>
 <div class="dec"><b>Hybrid retrieval with a re-rank, each toggleable</b><p>Keyword search catches exact section numbers and policy terms; vector search catches meaning; a cross-encoder re-ranks the top candidates. Each stage toggles, which turns the design into a measured ablation.</p><p class="alt">Instead of: vector-only retrieval asserted to be good.</p></div>
-<div class="dec"><b>Measured, not vibes</b><p>An offline retrieval ablation (no API key) plus an LLM-judged faithfulness score on a hand-built question set. Faithfulness is the safety metric.</p><p class="alt">Instead of: shipping Ragas, which conflicted with the installed langchain; the metrics are computed directly against Claude with the same definitions.</p></div>
+<div class="dec"><b>Measured with numbers</b><p>An offline retrieval ablation (no API key) plus an LLM-judged faithfulness score on a hand-built question set. Faithfulness is the safety metric.</p><p class="alt">Instead of: shipping Ragas, which conflicted with the installed langchain; the metrics are computed directly against Claude with the same definitions.</p></div>
 
 <h2>Design decisions</h2>
 <div class="dec"><b>The answer sits beside its sources</b><p>A source-passage panel shows the exact text behind the answer, with retrieval scores, so a reviewer can interrogate the grounding.</p><p class="alt">Instead of: an answer with no way to check where it came from.</p></div>
@@ -71,7 +71,7 @@ CASE_STUDY = """
 header(
     st,
     "Policy lookup · food assistance",
-    "Michigan SNAP eligibility — policy Q&A",
+    "Michigan SNAP eligibility: policy Q&A",
     "Grounded answers over a real subset of the Michigan Bridges Eligibility Manual. "
     "Every policy statement cites the BEM/BAM section it came from. When the manual "
     "does not cover a question, the system declines rather than inventing.",
@@ -112,14 +112,14 @@ with tab_demo:
                     if ans.citations:
                         st.markdown("**Citations**")
                         for c in ans.citations:
-                            st.markdown(f"- [{c.section_id} — {c.title}]({c.url})")
+                            st.markdown(f"- [{c.section_id} · {c.title}]({c.url})")
             else:
                 st.info("Retrieval-only mode. The passages the answer would be grounded in are shown on the right.")
 
         with source_col:
             st.subheader("Source passages")
             for i, p in enumerate(passages, start=1):
-                label = f"{i}. {p.section_id}" + (f" — {p.heading}" if p.heading else "")
+                label = f"{i}. {p.section_id}" + (f" · {p.heading}" if p.heading else "")
                 with st.expander(f"{label}  (score {p.score:.2f})"):
                     st.markdown(f"[{p.title}]({p.url})")
                     st.write(p.text)

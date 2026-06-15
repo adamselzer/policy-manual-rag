@@ -11,7 +11,7 @@ server exposes as a tool and the `benefits-intake-agent` consumes.
 
 > A hallucinated policy answer is a wrongful determination is a wrongful denial of
 > food assistance. So faithfulness, the degree to which an answer is grounded in
-> the retrieved policy text, is the safety case, not a vanity metric. A RAG app
+> the retrieved policy text, is the safety case here. A RAG app
 > that returns plausible text is table stakes. The point of this one is that it is
 > measured.
 
@@ -54,7 +54,7 @@ python -m venv .venv && source .venv/bin/activate
 pip install -e ".[dev]"             # retrieval stack (local models, no API key)
 
 python data/ingest.py               # download + parse the manual (already committed)
-python eval/ablations.py            # the retrieval ablation — no API key needed
+python eval/ablations.py            # the retrieval ablation, no API key needed
 pytest                              # 17 tests
 
 # Optional, for generation + LLM-judged metrics:
